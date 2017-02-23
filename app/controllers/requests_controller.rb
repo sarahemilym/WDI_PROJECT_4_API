@@ -1,5 +1,5 @@
 class RequestsController < ApplicationController
-  skip_before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_request, only: [:show, :update, :destroy]
 
   # GET /requests

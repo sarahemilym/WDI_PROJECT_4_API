@@ -4,8 +4,16 @@ before_action :set_user, only: [:show, :update, :destroy]
 
   def index
     @users = User.all
-
     render json: @users
+
+  end
+
+  def findCurrentUser
+    @current_user_profile = User.find(@current_user)
+    # render json: @current_user_profile
+    puts "*******************************"
+    puts @current_user_profile.
+    puts "*******************************"
   end
 
   def show
