@@ -1,26 +1,25 @@
 class UsersController < ApplicationController
-
-before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :destroy]
+  skip_before_action :authenticate_user!, only: [:spotify]
 
   def index
     @users = User.all
     render json: @users
-
   end
 
-  def findCurrentUser
-    @current_user_profile = User.find(@current_user)
-    # render json: @current_user_profile
-    puts "*******************************"
-    puts @current_user_profile.
-    puts "*******************************"
+  def spotify
+    @user = User.find_by_email(params[:email])
+    if @user
+      render json: { id: @user.id }, status: :ok
+    else
+      render json: {}, status: 404
+    end
   end
 
   def show
     @user = User.find(params[:id])
     render json: @user
   end
-
 
   def update
     if @user.update(user_params)
@@ -42,7 +41,7 @@ before_action :set_user, only: [:show, :update, :destroy]
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:email, :id, :first_name, :last_name, :spotify_id, :username, :authorized_rooms => [])
+      params.require(:user).permit(:email, :id, :first_name, :last_name, :spotify_id, :username)
     end
 
 end

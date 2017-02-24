@@ -1,4 +1,4 @@
 class RoomSerializer < ActiveModel::Serializer
-  attributes :id, :name, :playlist, :playlist_id, :owner_id, :authorized_users
+  attributes :id, :name, :playlist_id, :uri, :track_uri
   has_one :user
 end

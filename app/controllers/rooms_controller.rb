@@ -3,8 +3,7 @@ class RoomsController < ApplicationController
 
   # GET /rooms
   def index
-    @rooms = Room.all
-
+    @rooms = @current_user.visible_rooms
     render json: @rooms
   end
 
@@ -15,11 +14,12 @@ class RoomsController < ApplicationController
 
   # POST /rooms
   def create
-    @room = Room.new(room_params)
+    @room = @current_user.rooms.new(room_params)
 
     if @room.save
       render json: @room, status: :created, location: @room
     else
+      p @room.errors
       render json: @room.errors, status: :unprocessable_entity
     end
   end
@@ -46,6 +46,6 @@ class RoomsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def room_params
-      params.require(:room).permit(:name, :user_id, :playlist_id, :playlist, :owner_id, :authorized_users => [])
+      params.require(:room).permit(:name, :user_id, :playlist_id, :uri, :track_uri)
     end
 end

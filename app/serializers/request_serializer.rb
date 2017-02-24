@@ -1,5 +1,4 @@
 class RequestSerializer < ActiveModel::Serializer
-  attributes :id, :message, :status, :receiver_id
+  attributes :id, :message, :status, :receiver, :sender 
   has_one :room
-  has_one :user
 end

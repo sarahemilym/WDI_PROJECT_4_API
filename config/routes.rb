@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  resources :requests
-  resources :playlists
-  resources :users
+  resources :requests do
+    member do
+      put :accept
+      put :reject
+    end
+  end
+  resources :users, only: [:index, :show, :update, :destroy]
   resources :rooms
-  # get 'users', to: 'users#index'
-  # get 'users/:id', to: 'users#show'
-  # put 'users/:id', to: 'users#update'
   post 'register', to: 'authentications#register'
   post 'login', to: 'authentications#login'
 end
