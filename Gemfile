@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 gem 'rails', '~> 5.0.1'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
@@ -14,6 +13,7 @@ gem 'rack-cors'
 gem 'figaro'
 gem 'active_model_serializers'
 gem 'jwt'
+gem 'redis'
 
 group :development, :test do
   gem 'byebug', platform: :mri
